@@ -1,5 +1,5 @@
 const firebaseConfig = {
-  apiKey: "API-KEY",
+  apiKey: "API_KEY",
   authDomain: "saqib-first-project.firebaseapp.com",
   projectId: "saqib-first-project",
   storageBucket: "saqib-first-project.firebasestorage.app",
@@ -74,3 +74,28 @@ window.addEventListener("keydown", (e) => {
     document.querySelector(".message").style.display = "none";
   }
 });
+
+
+
+
+
+      firebase.initializeApp(firebaseConfig);
+      let auth = firebase.auth();
+
+          auth.onAuthStateChanged(user => {
+      if(user){
+        let welcomeH1 = document.getElementById("welcomeBox");
+        welcomeH1.innerHTML = 
+          `👋 Welcome, <b>${user.displayName}</b>`;
+     setTimeout(() => {
+          welcomeH1.style.top = "-150px";
+     }, 4000);
+
+      }else{
+        window.location.href = "signin.html";
+      }
+    });
+
+    function logout(){
+      auth.signOut().then(() => window.location.href = "signin.html");
+    }
